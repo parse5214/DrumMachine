@@ -63,8 +63,8 @@ const App = () => {
   return (
     <div className="container-fluid min-vh-100 text-white" style={{backgroundColor: '#30336b'}} id="drum-machine">
       <div className="row justify-content-center">
-        <div className="col-md-6 text-center justify-content-center" id="display">
-          <h1 className="text-info my-5">DRUM MACHINE</h1>
+        <div className="col-md-6 text-center justify-content-center">
+        <h1 className="text-info my-5" id="display" style={{height: '50px'}}></h1>
           {audioClips.map(clip => {
             return (
               <Pad key={clip.id} clip={clip} volume={volume}/>
@@ -92,6 +92,7 @@ const Pad = ({clip, volume}) => {
   }
 
   const playSound = () => {
+    document.getElementById('display').innerHTML = clip.id
     const currClip = document.getElementById(clip.keyTrigger)
     setActive(true)
     setTimeout(() => setActive(false), 200)
@@ -101,7 +102,7 @@ const Pad = ({clip, volume}) => {
   }
 
   return (
-    <div onClick={playSound} className={`btn btn-outline-secondary btn-lg col-3 m-2 ${active && 'btn-warning'}`}>
+    <div id={clip.id} onClick={playSound} className={`drum-pad btn btn-outline-secondary btn-lg col-3 m-2 ${active && 'btn-warning'}`}>
       <audio className="clip" id={clip.keyTrigger} src={clip.url} />
       <h1 className="text-white">{clip.keyTrigger}</h1>
     </div>
